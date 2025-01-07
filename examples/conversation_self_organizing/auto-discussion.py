@@ -6,22 +6,24 @@ import agentscope
 from agentscope.agents import DialogAgent
 from agentscope.pipelines.functional import sequentialpipeline
 from agentscope.message import Msg
+import os
 
 model_configs = [
     {
-        "model_type": "openai_chat",
-        "config_name": "gpt-3.5-turbo",
-        "model_name": "gpt-3.5-turbo",
-        "api_key": "xxx",  # Load from env if not provided
-        "organization": "xxx",  # Load from env if not provided
+        "model_type": "dashscope_chat",
+        "config_name": "dash",
+        "model_name": "qwen-turbo",
+        "api_key": os.environ.get("DASHSCOPE_API_KEY", "sk-a2eb345c7f514044b7f4a9053d228467"),
+        "organization": "noodle-ai",  # Load from env if not provided
         "generate_args": {
             "temperature": 0.5,
         },
     },
     {
-        "model_type": "post_api_chat",
+        "model_type": "dashscope_chat",
         "config_name": "my_post_api",
-        "api_url": "https://xxx",
+        "model_name": "qwen-turbo",
+        "api_key": os.environ.get("DASHSCOPE_API_KEY", "sk-a2eb345c7f514044b7f4a9053d228467"),
         "headers": {},
         "json_args": {},
     },

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """A werewolf game implemented by agentscope."""
 from functools import partial
+import argparse
 
 from prompt import Prompts
 from werewolf_utils import (
@@ -16,9 +17,32 @@ from agentscope.msghub import msghub
 from agentscope.pipelines.functional import sequentialpipeline
 import agentscope
 
+def parse_args() -> argparse.Namespace:
+    """Parse arguments"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--logger-level",
+        choices=["DEBUG", "INFO"],
+        default="INFO",
+    )
+    parser.add_argument(
+        "--use-dist",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--studio-url",
+        default=None,
+        type=str,
+    )
+    parser.add_argument(
+        "--timeout",
+        default=5,
+        type=int,
+    )
+    return parser.parse_args()
 
 # pylint: disable=too-many-statements
-def main() -> None:
+def main(args: argparse.Namespace) -> None:
     """werewolf game"""
     # default settings
     HostMsg = partial(Msg, name="Moderator", role="assistant", echo=True)
@@ -30,6 +54,7 @@ def main() -> None:
         model_configs="./configs/model_configs.json",
         agent_configs="./configs/agent_configs.json",
         project="Werewolf",
+        studio_url=args.studio_url
     )
 
     roles = ["werewolf", "werewolf", "villager", "villager", "seer", "witch"]
@@ -146,4 +171,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    main(parse_args())
