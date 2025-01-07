@@ -44,7 +44,7 @@ def main(args: argparse.Namespace) -> None:
             "model_type": "dashscope_chat",
             "config_name": "dash",
             "model_name": "qwen-turbo",
-            "api_key": os.environ.get("DASHSCOPE_API_KEY", ""),
+            "api_key": os.environ.get("DASHSCOPE_API_KEY", "sk-a2eb345c7f514044b7f4a9053d228467"),
         },
     ]
 
